@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 2352,
+    "production_files": 49,
+    "production_packages": 7,
+    "test_files": 12,
+    "production_functions": 192,
+    "decision_points": 328
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": [
+      "LegalCase",
+      "Chapter",
+      "ClassroomNote",
+      "Publication",
+      "LessonPlan",
+      "CaseReference"
+    ],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {
+      "steps": [
+        "教师录入案件编号、标题、摘要和发布日期",
+        "教师补充章节与课堂备注",
+        "系统加载案件工作区并校验资料完整性",
+        "工作区状态持久化后可再次查询"
+      ],
+      "test": "TestWorkflowCaseIntakeAndWorkspace"
+    },
+    {
+      "steps": [
+        "教师创建教学目标和课堂活动",
+        "教师保存法条与判决书引用",
+        "教师提交审阅并记录审阅决定",
+        "系统展示可发布的草稿材料"
+      ],
+      "test": "TestWorkflowTeacherBuildsDraftMaterials"
+    },
+    {
+      "steps": [
+        "教师确认章节内容完整",
+        "服务将案件状态转换为已发布",
+        "学生读取已发布章节和引用",
+        "教师导出包含课堂备注的讲义"
+      ],
+      "test": "TestWorkflowPublishAndExportHandout"
+    }
+  ]
+}
