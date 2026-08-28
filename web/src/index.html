@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>案例讲解稿课堂</title>
+    <style>
+      :root { color-scheme: light; font-family: system-ui, sans-serif; background: #f5f6f8; color: #1f2937; }
+      body { margin: 0; }
+      header { background: #1e3a5f; color: white; padding: 24px 8vw; }
+      main { max-width: 960px; margin: 32px auto; padding: 0 20px; }
+      .toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
+      input, button { border: 1px solid #b7c0cc; border-radius: 4px; padding: 10px 12px; font: inherit; }
+      button { background: #0f766e; color: white; border-color: #0f766e; cursor: pointer; }
+      #cases { display: grid; gap: 12px; }
+      article { background: white; border: 1px solid #d7dce2; padding: 16px; border-radius: 6px; }
+      .status { color: #0f766e; font-size: 0.9rem; }
+    </style>
+  </head>
+  <body data-build-mode="%%BUILD_MODE%%">
+    <header><h1>法律案例讲解稿课堂</h1><p>学生查看已发布案例，教师整理章节、备注与讲义。</p></header>
+    <main>
+      <div class="toolbar"><input id="date" type="date" aria-label="发布日期" /><button id="load">查看已发布案例</button></div>
+      <section id="cases" aria-live="polite"><article>请选择发布日期并加载案例。</article></section>
+    </main>
+    <script>
+      const cases = document.querySelector('#cases');
+      document.querySelector('#load').addEventListener('click', () => {
+        const date = document.querySelector('#date').value;
+        cases.innerHTML = date ? `<article><strong>${date}</strong><p class="status">请通过 casescript list --date ${date} 查看已发布内容。</p></article>` : '<article>请输入发布日期。</article>';
+      });
+    </script>
+  </body>
+</html>
